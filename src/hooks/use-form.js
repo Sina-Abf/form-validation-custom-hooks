@@ -23,7 +23,6 @@ const useForm = (validation) => {
   return {
     value: enteredValue,
     enteredValueTouched,
-    valueisValid,
     valueIsInvalid,
     valueChangeHandler,
     valueBlurHandler,
