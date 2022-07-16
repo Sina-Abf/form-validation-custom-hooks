@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import useForm from '../hooks/use-form';
 
 const FormInput = () => {
-  const [firstName, setFirstName] = useState('');
-  const [firstNameTouched, setFirstNameTouched] = useState(false);
+  const {
+    value: firstName,
+    valueisValid: firstNameIsValid,
+    valueIsInvalid: firstNameIsInvalid,
+    valueChangeHandler: firstNameChangeHandler,
+    valueBlurHandler: firstNameTouchedHandler,
+    reset: nameReset,
+  } = useForm((value) => value.trim() !== '');
 
   const [lastName, setLastName] = useState('');
   const [lastNameTouched, setLastNameIsTouched] = useState(false);
@@ -11,22 +17,11 @@ const FormInput = () => {
   const [email, setEmail] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
 
-  const firstNameIsValid = firstName.trim() !== '';
-  const firstNameIsInvalid = !firstNameIsValid && firstNameTouched;
-
   const lastNameIsValid = lastName.trim() !== '';
   const lastNameIsInvalid = !lastNameIsValid && lastNameTouched;
 
   const emailIsValid = email.trim() !== '' && email.includes('@');
   const emailIsInvalid = !emailIsValid && emailTouched;
-
-  const firstNameChangeHandler = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const firstNameTouchedHandler = () => {
-    setFirstNameTouched(true);
-  };
 
   const lastNameChangeHandler = (event) => {
     setLastName(event.target.value);
@@ -55,8 +50,7 @@ const FormInput = () => {
     console.log(lastName);
     console.log(email);
 
-    setFirstName('');
-    setFirstNameTouched(false);
+    nameReset();
 
     setLastName('');
     setLastNameIsTouched(false);
